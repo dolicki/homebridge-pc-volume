@@ -1,8 +1,8 @@
 {
-  "name": "homebridge-pc-volume",
+  "name": "local-homebridge-pc-volume",
   "version": "1.2.4",
   "description": "Control your system's volume using Apple's HomeKit",
-  "author": "Joseph Duffy",
+  "author": "Pero Peric",
   "license": "MIT",
   "main": "build/index.js",
   "preferGlobal": true,
@@ -50,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JosephDuffy/homebridge-pc-volume.git"
+    "url": ""
   },
   "keywords": [
     "homebridge-plugin",
