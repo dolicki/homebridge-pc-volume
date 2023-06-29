@@ -1,5 +1,5 @@
 {
-  "name": "local-homebridge-pc-volume",
+  "name": "goran-pc-volume",
   "version": "1.2.4",
   "description": "Control your system's volume using Apple's HomeKit",
   "author": "Pero Peric",
@@ -7,7 +7,7 @@
   "main": "build/index.js",
   "preferGlobal": true,
   "scripts": {
-    "prepublishOnly": "rm -rf build && npm run build",
+    "prepublishOnly": "npm run build",
     "build": "tsc",
     "build:watch": "nodemon -e ts,json --watch src --watch tsconfig.json --watch package.json --exec \"tsc\"",
     "build:watch:debug": "nodemon -e ts,json --watch src --watch tsconfig.json --watch package.json --watch .homebridge-debug/config.json --exec \"tsc && homebridge --debug --user-storage-path .homebridge-debug --plugin-path .\"",
