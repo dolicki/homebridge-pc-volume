@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("./config");
 class ComputerSpeakers {
     constructor(log, loudness) {
+        this.volume = 50;
         this.log = log;
         this.loudness = loudness;
     }
@@ -49,13 +50,14 @@ class ComputerSpeakers {
                     }
                 }
             })();
-            resolve(volume);
+            this.volume = volume;
+            resolve(this.volume);
         });
     }
     getVolume(algorithm) {
         return new Promise((resolve, reject) => {
             this.log.debug(`Getting volume`);
-            resolve(Math.ceil(Math.random() * 100));
+            resolve(this.volume);
         });
     }
     modifyVolume(delta, algorithm) {
