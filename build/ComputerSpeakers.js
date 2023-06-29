@@ -22,7 +22,7 @@ class ComputerSpeakers {
             this.log.debug(`Getting muted status`);
             try {
                 this.log.debug(`Got muted status: ${this.muted}`);
-                return this.muted;
+                return false;
             }
             catch (error) {
                 this.log.debug(`Failed to get muted status: ${error}`);
