@@ -6,6 +6,7 @@ type Loudness = typeof import("loudness")
 export default class ComputerSpeakers {
   private log: Logging
   private loudness: Loudness
+  private volume = 50
 
   constructor(log: Logging, loudness: Loudness) {
     this.log = log
@@ -51,14 +52,15 @@ export default class ComputerSpeakers {
           }
         }
       })()
-      resolve(volume)
+      this.volume = volume
+      resolve(this.volume)
     })
   }
 
   public getVolume(algorithm: VolumeAlgorithm): Promise<number> {
     return new Promise((resolve, reject) => {
       this.log.debug(`Getting volume`)
-      resolve(Math.ceil(Math.random() * 100))
+      resolve(this.volume)
     })
   }
 
