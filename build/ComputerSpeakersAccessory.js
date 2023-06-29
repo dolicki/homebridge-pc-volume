@@ -34,12 +34,12 @@ class ComputerSpeakersAccessory {
             this.speakerService = new ServiceWrapper_1.default(new this.Service.AccessoryMetrics(name, config_1.Service.Speaker));
             this.speakerService.service
                 .getCharacteristic(this.Characteristic.On)
-                .on("get" /* CharacteristicEventTypes.GET */, () => {
-                return 123;
-            })
-                .on("set" /* CharacteristicEventTypes.SET */, () => {
-                return 1;
+                .on("get" /* CharacteristicEventTypes.GET */, (callback) => {
+                return callback(null, 123);
             });
+            // .on(CharacteristicEventTypes.SET, () => {
+            //   return 1
+            // })
             // this.speakerService.bindBooleanCharacteristic(
             //   this.Characteristic.On,
             //   async () => {

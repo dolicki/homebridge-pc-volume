@@ -43,12 +43,12 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
 
       this.speakerService.service
         .getCharacteristic(this.Characteristic.On)
-        .on(CharacteristicEventTypes.GET, () => {
-          return 123
+        .on(CharacteristicEventTypes.GET, (callback) => {
+          return callback(null, 123)
         })
-        .on(CharacteristicEventTypes.SET, () => {
-          return 1
-        })
+      // .on(CharacteristicEventTypes.SET, () => {
+      //   return 1
+      // })
 
       // this.speakerService.bindBooleanCharacteristic(
       //   this.Characteristic.On,
