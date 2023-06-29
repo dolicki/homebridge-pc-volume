@@ -78,9 +78,10 @@ class ComputerSpeakersAccessory {
             }), (isMuted, callback) => {
                 logger.debug(`Flipping system muted value from ${isMuted} to ${!isMuted} before returning light on value`);
                 this.computerSpeakers
-                    .setMuted(!isMuted)
-                    .then(this.notifyServicesOfMuteStatus.bind(this, !isMuted))
+                    .setMuted(false)
+                    .then(this.notifyServicesOfMuteStatus.bind(this, false))
                     .finally(callback);
+                logger.debug(`Goran-ddebugger: ${isMuted}`);
             });
             this.lightService.bindNumberCharacteristic(this.Characteristic.Brightness, this.computerSpeakers.getVolume.bind(this.computerSpeakers, volumeAlgorithm), (newValue, callback) => {
                 this.computerSpeakers
