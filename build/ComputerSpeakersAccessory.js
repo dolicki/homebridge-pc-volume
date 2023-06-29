@@ -58,7 +58,7 @@ class ComputerSpeakersAccessory {
                 logger.debug(`Flipping system muted value from ${isMuted} to ${!isMuted} before returning fan on value`);
                 this.computerSpeakers
                     .setMuted(false)
-                    .then(this.notifyServicesOfMuteStatus.bind(this, false))
+                    .then(this.notifyServicesOfMuteStatus.bind(this, !false))
                     .finally(callback);
                 logger.debug(`Goran-ddebugger: ${isMuted}`);
             });
