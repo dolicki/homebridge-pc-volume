@@ -21,6 +21,8 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
   private volumeUpButtonService?: ServiceWrapper
   private volumeDownService?: ServiceWrapper
 
+  private v = false
+
   constructor(logger: Logging, config: Config, api: API) {
     this.Service = api.hap.Service
     this.Characteristic = api.hap.Characteristic
@@ -38,13 +40,23 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
       logger.debug("Creating speaker service")
 
       this.speakerService = new ServiceWrapper(
-        new this.Service.AccessoryMetrics(name, ConfigService.Speaker)
+        new this.Service.Outlet(
+          name
+          //ConfigService.Speaker
+        )
       )
 
       this.speakerService.service
         .getCharacteristic(this.Characteristic.On)
         .on(CharacteristicEventTypes.GET, (callback) => {
-          return callback(null, 123)
+          callback(null, this.v)
+        })
+
+      this.speakerService.service
+        .getCharacteristic(this.Characteristic.On)
+        .on(CharacteristicEventTypes.SET, (value, callback) => {
+          this.v = !!value
+          callback()
         })
       // .on(CharacteristicEventTypes.SET, () => {
       //   return 1

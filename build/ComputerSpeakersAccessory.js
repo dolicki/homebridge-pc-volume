@@ -18,6 +18,7 @@ const ServiceWrapper_1 = __importDefault(require("./ServiceWrapper"));
 const ComputerSpeakers_1 = __importDefault(require("./ComputerSpeakers"));
 class ComputerSpeakersAccessory {
     constructor(logger, config, api) {
+        this.v = false;
         this.Service = api.hap.Service;
         this.Characteristic = api.hap.Characteristic;
         this.computerSpeakers = new ComputerSpeakers_1.default(logger, loudness_1.default);
@@ -31,11 +32,19 @@ class ComputerSpeakersAccessory {
             : config_1.VolumeAlgorithm.Linear;
         if (services.indexOf(config_1.Service.Speaker) > -1) {
             logger.debug("Creating speaker service");
-            this.speakerService = new ServiceWrapper_1.default(new this.Service.AccessoryMetrics(name, config_1.Service.Speaker));
+            this.speakerService = new ServiceWrapper_1.default(new this.Service.Outlet(name
+            //ConfigService.Speaker
+            ));
             this.speakerService.service
                 .getCharacteristic(this.Characteristic.On)
                 .on("get" /* CharacteristicEventTypes.GET */, (callback) => {
-                return callback(null, 123);
+                callback(null, this.v);
+            });
+            this.speakerService.service
+                .getCharacteristic(this.Characteristic.On)
+                .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
+                this.v = !!value;
+                callback();
             });
             // .on(CharacteristicEventTypes.SET, () => {
             //   return 1

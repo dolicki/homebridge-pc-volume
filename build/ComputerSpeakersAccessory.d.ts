@@ -14,6 +14,7 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
   private lightService?
   private volumeUpButtonService?
   private volumeDownService?
+  private v
   constructor(logger: Logging, config: Config, api: API)
   getServices(): HAPService[]
   private notifyServicesOfVolume
