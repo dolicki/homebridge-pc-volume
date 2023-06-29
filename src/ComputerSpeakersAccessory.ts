@@ -3,6 +3,7 @@ import Config, { Service as ConfigService, VolumeAlgorithm } from "./config"
 import {
   API,
   AccessoryPlugin,
+  CharacteristicEventTypes,
   Characteristic as HAPCharacteristic,
   Service as HAPService,
   Logging,
@@ -37,34 +38,44 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
       logger.debug("Creating speaker service")
 
       this.speakerService = new ServiceWrapper(
-        new this.Service.Speaker(name, ConfigService.Speaker)
+        new this.Service.AccessoryMetrics(name, ConfigService.Speaker)
       )
 
-      this.speakerService.bindBooleanCharacteristic(
-        this.Characteristic.Mute,
-        async () => {
-          return this.computerSpeakers.getMuted()
-        },
-        (isMuted: boolean, callback: () => void) => {
-          this.computerSpeakers
-            .setMuted(isMuted)
-            .then(this.notifyServicesOfMuteStatus.bind(this, isMuted))
-            .finally(callback)
-        }
-      )
-      this.speakerService.bindNumberCharacteristic(
-        this.Characteristic.Volume,
-        this.computerSpeakers.getVolume.bind(
-          this.computerSpeakers,
-          volumeAlgorithm
-        ),
-        (volume: number, callback: () => void) => {
-          this.computerSpeakers
-            .setVolume(volume, volumeAlgorithm)
-            .then(this.notifyServicesOfVolume.bind(this))
-            .finally(callback)
-        }
-      )
+      this.speakerService.service
+        .getCharacteristic(this.Characteristic.On)
+        .on(CharacteristicEventTypes.GET, () => {
+          return 123
+        })
+        .on(CharacteristicEventTypes.SET, () => {
+          return 1
+        })
+
+      // this.speakerService.bindBooleanCharacteristic(
+      //   this.Characteristic.On,
+      //   async () => {
+      //     return true
+      //   },
+      //   (isMuted: boolean, callback: () => void) => {
+      //     // this.computerSpeakers
+      //     //   .setMuted(isMuted)
+      //     //   .then(this.notifyServicesOfMuteStatus.bind(this, isMuted))
+      //     //   .finally(callback)
+      //     this.speakerService.service.getCharacteristic(this.Characteristic.On).setValue(123)
+      //   }
+      // )
+      // this.speakerService.bindNumberCharacteristic(
+      //   this.Characteristic.Volume,
+      //   this.computerSpeakers.getVolume.bind(
+      //     this.computerSpeakers,
+      //     volumeAlgorithm
+      //   ),
+      //   (volume: number, callback: () => void) => {
+      //     this.computerSpeakers
+      //       .setVolume(volume, volumeAlgorithm)
+      //       .then(this.notifyServicesOfVolume.bind(this))
+      //       .finally(callback)
+      //   }
+      // )
     }
 
     if (services.indexOf(ConfigService.Fan) > -1) {
@@ -73,6 +84,8 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
       this.fanService = new ServiceWrapper(
         new this.Service.Fan(name, ConfigService.Fan)
       )
+
+      //new this.Service.AccessoryRuntimeInformation('name', )
 
       this.fanService.bindBooleanCharacteristic(
         this.Characteristic.On,

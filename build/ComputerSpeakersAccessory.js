@@ -31,25 +31,46 @@ class ComputerSpeakersAccessory {
             : config_1.VolumeAlgorithm.Linear;
         if (services.indexOf(config_1.Service.Speaker) > -1) {
             logger.debug("Creating speaker service");
-            this.speakerService = new ServiceWrapper_1.default(new this.Service.Speaker(name, config_1.Service.Speaker));
-            this.speakerService.bindBooleanCharacteristic(this.Characteristic.Mute, () => __awaiter(this, void 0, void 0, function* () {
-                return this.computerSpeakers.getMuted();
-            }), (isMuted, callback) => {
-                this.computerSpeakers
-                    .setMuted(isMuted)
-                    .then(this.notifyServicesOfMuteStatus.bind(this, isMuted))
-                    .finally(callback);
+            this.speakerService = new ServiceWrapper_1.default(new this.Service.AccessoryMetrics(name, config_1.Service.Speaker));
+            this.speakerService.service
+                .getCharacteristic(this.Characteristic.On)
+                .on("get" /* CharacteristicEventTypes.GET */, () => {
+                return 123;
+            })
+                .on("set" /* CharacteristicEventTypes.SET */, () => {
+                return 1;
             });
-            this.speakerService.bindNumberCharacteristic(this.Characteristic.Volume, this.computerSpeakers.getVolume.bind(this.computerSpeakers, volumeAlgorithm), (volume, callback) => {
-                this.computerSpeakers
-                    .setVolume(volume, volumeAlgorithm)
-                    .then(this.notifyServicesOfVolume.bind(this))
-                    .finally(callback);
-            });
+            // this.speakerService.bindBooleanCharacteristic(
+            //   this.Characteristic.On,
+            //   async () => {
+            //     return true
+            //   },
+            //   (isMuted: boolean, callback: () => void) => {
+            //     // this.computerSpeakers
+            //     //   .setMuted(isMuted)
+            //     //   .then(this.notifyServicesOfMuteStatus.bind(this, isMuted))
+            //     //   .finally(callback)
+            //     this.speakerService.service.getCharacteristic(this.Characteristic.On).setValue(123)
+            //   }
+            // )
+            // this.speakerService.bindNumberCharacteristic(
+            //   this.Characteristic.Volume,
+            //   this.computerSpeakers.getVolume.bind(
+            //     this.computerSpeakers,
+            //     volumeAlgorithm
+            //   ),
+            //   (volume: number, callback: () => void) => {
+            //     this.computerSpeakers
+            //       .setVolume(volume, volumeAlgorithm)
+            //       .then(this.notifyServicesOfVolume.bind(this))
+            //       .finally(callback)
+            //   }
+            // )
         }
         if (services.indexOf(config_1.Service.Fan) > -1) {
             logger.debug("Creating fan service");
             this.fanService = new ServiceWrapper_1.default(new this.Service.Fan(name, config_1.Service.Fan));
+            //new this.Service.AccessoryRuntimeInformation('name', )
             this.fanService.bindBooleanCharacteristic(this.Characteristic.On, () => __awaiter(this, void 0, void 0, function* () {
                 const isOn = yield this.computerSpeakers.getMuted();
                 logger.debug(`Flipping fan on value from ${isOn} to ${!isOn} before setting muted status`);
