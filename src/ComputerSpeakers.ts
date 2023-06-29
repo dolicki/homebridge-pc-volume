@@ -7,6 +7,7 @@ export default class ComputerSpeakers {
   private log: Logging
   private loudness: Loudness
   private volume = 50
+  private muted = false
 
   constructor(log: Logging, loudness: Loudness) {
     this.log = log
@@ -16,9 +17,8 @@ export default class ComputerSpeakers {
   public async getMuted(): Promise<boolean> {
     this.log.debug(`Getting muted status`)
     try {
-      const isMuted = false
-      this.log.debug(`Got muted status: ${isMuted}`)
-      return isMuted
+      this.log.debug(`Got muted status: ${this.muted}`)
+      return this.muted
     } catch (error) {
       this.log.debug(`Failed to get muted status: ${error}`)
       throw error
@@ -28,6 +28,7 @@ export default class ComputerSpeakers {
   public setMuted(newValue: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
       this.log.debug(`Setting muted status to ${newValue}`)
+      this.muted = newValue
       resolve()
     })
   }

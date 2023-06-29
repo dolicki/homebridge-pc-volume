@@ -13,6 +13,7 @@ const config_1 = require("./config");
 class ComputerSpeakers {
     constructor(log, loudness) {
         this.volume = 50;
+        this.muted = false;
         this.log = log;
         this.loudness = loudness;
     }
@@ -20,9 +21,8 @@ class ComputerSpeakers {
         return __awaiter(this, void 0, void 0, function* () {
             this.log.debug(`Getting muted status`);
             try {
-                const isMuted = false;
-                this.log.debug(`Got muted status: ${isMuted}`);
-                return isMuted;
+                this.log.debug(`Got muted status: ${this.muted}`);
+                return this.muted;
             }
             catch (error) {
                 this.log.debug(`Failed to get muted status: ${error}`);
@@ -33,6 +33,7 @@ class ComputerSpeakers {
     setMuted(newValue) {
         return new Promise((resolve, reject) => {
             this.log.debug(`Setting muted status to ${newValue}`);
+            this.muted = newValue;
             resolve();
         });
     }

@@ -5,6 +5,7 @@ export default class ComputerSpeakers {
   private log
   private loudness
   private volume
+  private muted
   constructor(log: Logging, loudness: Loudness)
   getMuted(): Promise<boolean>
   setMuted(newValue: boolean): Promise<void>
