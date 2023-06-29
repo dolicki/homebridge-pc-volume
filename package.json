@@ -50,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JosephDuffy/homebridge-pc-volume.git"
+    "url": "https://github.com/dolicki/homebridge-pc-volume.git"
   },
   "keywords": [
     "homebridge-plugin",
