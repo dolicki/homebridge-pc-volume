@@ -8,7 +8,7 @@ describe("ComputerSpeakers", () => {
   let wrapper: ComputerSpeakers
 
   beforeEach(() => {
-    wrapper = new ComputerSpeakers(new MockLogging() as Logging)
+    wrapper = new ComputerSpeakers(new MockLogging() as Logging, loudness)
   })
 
   describe("#getMuted", () => {

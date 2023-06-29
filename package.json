@@ -1,8 +1,8 @@
 {
-  "name": "goran-pc-volume",
+  "name": "homebridge-pc-volume",
   "version": "1.2.4",
   "description": "Control your system's volume using Apple's HomeKit",
-  "author": "Pero Peric",
+  "author": "Joseph Duffy",
   "license": "MIT",
   "main": "build/index.js",
   "preferGlobal": true,
@@ -50,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/JosephDuffy/homebridge-pc-volume.git"
   },
   "keywords": [
     "homebridge-plugin",

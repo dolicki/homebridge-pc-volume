@@ -23,7 +23,7 @@ export default class ComputerSpeakersAccessory implements AccessoryPlugin {
   constructor(logger: Logging, config: Config, api: API) {
     this.Service = api.hap.Service
     this.Characteristic = api.hap.Characteristic
-    this.computerSpeakers = new ComputerSpeakers(logger)
+    this.computerSpeakers = new ComputerSpeakers(logger, loudness)
     const name = config.name
     const services = config.services || [ConfigService.Lightbulb]
     const logarithmic = config.logarithmic || false
